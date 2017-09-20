@@ -1,9 +1,9 @@
-<% provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
+<% provide(:title, 'Add User') %>
+<h1>Add User</h1>
 
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@user, url: signup_path) do |f| %>
+    <%= form_for(@user, url: new_admin_url) do |f| %>
         <%= render 'shared/error_messages' %>
         <%= f.label :name %>
         <%= f.text_field :name, class: 'form-control' %>
@@ -17,9 +17,12 @@
         <%= f.label :password_confirmation, "Confirmation" %>
         <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-        <%= f.submit "Create my account", class: "btn btn-primary" %>
-
-        <%= link_to 'Back', root_path %>
+        <%= f.submit "Create User", class: "btn btn-primary" %>
     <% end %>
   </div>
 </div>
+
+<b>
+  <br>
+  <%= link_to 'Back', current_user %>
+</b>
