@@ -5,13 +5,21 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
+ruby '2.4.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 
-gem 'bcrypt', '~> 3.1.11', platforms: [:ruby, :x64_mingw, :mingw]
+gem 'bcrypt', git: 'https://github.com/codahale/bcrypt-ruby.git', :require => 'bcrypt'
 
 gem 'bootstrap-sass', '3.3.7'
+
+gem 'faker'
+
+gem 'mini_magick'
+
+gem 'carrierwave'
+
+gem "schema_validations"
 
 # Use sqlite3 as the database for Active Record
 #gem 'sqlite3'

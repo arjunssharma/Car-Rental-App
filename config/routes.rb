@@ -14,6 +14,12 @@ Rails.application.routes.draw do
   get  '/new_admin',  to: 'users#newadmin'
   post '/new_admin',  to: 'users#createadmin'
 
+  get  '/bookings',  to: 'bookings#newbooking'
+  post '/bookings',  to: 'bookings#create_booking'
+
+  get  '/cars',  to: 'cars#index'
+  post '/cars',  to: 'cars#create'
+
   get    '/login',   to: 'sessions#new'
   post   '/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
@@ -21,6 +27,8 @@ Rails.application.routes.draw do
   match '/users/newadmin', to: 'users#newadmin', as: :newadmin, via: :all
   #match '/users/newuser', to: 'users#newuser', as: :new_user, via: :all
   resources :users
+  resources :cars
+  resources :bookings
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #root 'users#index'
 end

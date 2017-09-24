@@ -1,0 +1,38 @@
+<%= form_for([@car, @booking]) do |form| %>
+  <% if booking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
+
+      <ul>
+      <% booking.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="field">
+      <%= form.label :starting %><br>
+      <%= form.text_field :starting , placeholder: %q("Select date")  %>
+    </div>
+    <div class="field">
+      <%= form.label :ending %><br>
+      <%= form.text_field :ending , placeholder: %q("Select date") %>
+    </div>
+    <div class="field">
+      <%= form.label :client %><br>
+      <%= form.text_field :client %>
+    </div>
+    <div class="field">
+      <%= form.label :phone %><br>
+      <%= form.text_field :phone %>
+    </div>
+    <div class="field">
+      <%= form.label :place %><br>
+      <%= form.select :place, options_for_select(['New York, 55 East 52nd Street', 'Seattle, 2201 Westlake Avenue']),:prompt => 'Select One' %>
+    </div>
+    <%= form.hidden_field :car_id, :value => params[:car_id]%>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+<% end %>
