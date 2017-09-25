@@ -1,6 +1,6 @@
 class FixColumnName < ActiveRecord::Migration[5.1]
   def self.up
-    rename_column :Users, :type, :user_type
+    rename_column :users, :type, :user_type
   end
 
   def self.down
