@@ -10,7 +10,7 @@ This Application is written using Ruby on Rails as a project for course Object O
 ## Deployed Application 
 
 ### Production App Link
-http://ec2-54-242-40-247.compute-1.amazonaws.com/
+https://stormy-river-36686.herokuapp.com/
 
 ### Default admin
 <dd><b>username:</b> admin@car.com</dd>
