@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   get  '/new_admin',  to: 'users#newadmin'
   post '/new_admin',  to: 'users#createadmin'
 
+  get  '/new_superadmin',  to: 'users#newsuperadmin'
+  post '/new_superadmin',  to: 'users#createsuperadmin'
+
   get  '/bookings',  to: 'bookings#newbooking'
   post '/bookings',  to: 'bookings#create_booking'
 
@@ -25,6 +28,10 @@ Rails.application.routes.draw do
   delete '/logout',  to: 'sessions#destroy'
   get 'show_admin', to: 'users#show_admin', as: :show_admin, via: :all
   match '/users/newadmin', to: 'users#newadmin', as: :newadmin, via: :all
+
+  get 'show_superadmin', to: 'users#show_superadmin', as: :show_superadmin, via: :all
+  match '/users/newsuperadmin', to: 'users#newsuperadmin', as: :newsuperadmin, via: :all
+
   #match '/users/newuser', to: 'users#newuser', as: :new_user, via: :all
   resources :users
   resources :cars

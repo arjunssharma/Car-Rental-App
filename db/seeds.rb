@@ -5,12 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Car.create!(name: 'Mercedes-Benz S550', comfort_class: 'A', description: 'Year: 2015, Engine: 4.7, Horsepower: 449, Fuel: Gasoline')
+User.create :name => 'admin', :password => 'password', :email => 'admin@car.com', :user_type => 0
 
-Car.create!(name: 'Volkswagen Passat', comfort_class: 'B', description: 'Year: 2014, Engine: 1.4, Horsepower: 150, Fuel: Gasoline')
+User.create :name => 'admin1', :password => 'password', :email => 'admin1@car.com', :user_type => 1
+User.create :name => 'admin2', :password => 'password', :email => 'admin2@car.com', :user_type => 1
 
-Car.create!(name: 'Fiat Panda', comfort_class: 'C', description: 'Year: 2014, Engine: 1.1, Horsepower: 54, Fuel: Gasoline')
+User.create :name => 'user1', :password => 'password', :email => 'user1@car.com', :user_type => 2
+User.create :name => 'user2', :password => 'password', :email => 'user2@car.com', :user_type => 2
 
+#Car.create!(name: 'Mercedes-Benz S550', comfort_class: 'A', description: 'Year: 2015, Engine: 4.7, Horsepower: 449, Fuel: Gasoline')
+
+=begin
 4.times do
   3.times do
     name = Faker::Name.last_name
@@ -49,3 +54,4 @@ cars.each do |car|
   ending = Faker::Date.between(starting + 1, starting + 1.month)
   car.bookings.create!(starting: starting, ending: ending, client: name, place: 'New York, 55 East 52nd Street', phone: phone)
 end
+=end

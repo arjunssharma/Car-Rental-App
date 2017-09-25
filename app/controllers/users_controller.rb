@@ -19,6 +19,9 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def show_superadmin
+    @users = User.all
+  end
   # GET /users/new
   def new
     @user = User.new
@@ -54,6 +57,10 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+  def newsuperadmin
+    @user = User.new
+  end
+
   def createuser
     @user = User.new(user_params)
     if @user.save
@@ -73,6 +80,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def createsuperadmin
+    @user = User.new(user_params)
+    @user.user_type = 0
+    if @user.save
+      redirect_to current_user, notice: 'Super Admin was successfully created.'
+    else
+      render :new, notice: 'Super Admin was not created!'
+    end
+  end
+
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
@@ -80,7 +97,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update(user_params)
         flash[:success] = "Profile updated"
-        format.html { redirect_to @user}
+        format.html { redirect_to current_user}
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -96,11 +113,20 @@ class UsersController < ApplicationController
       # if user == current user or nil, don't delete
       # if usertype == 2 (user), not allowed to delete
       # Give a message saying can't delete
-      @user.destroy
-      respond_to do |format|
-        format.html { redirect_to users_path, notice: 'User/Admin was successfully deleted.' }
-        format.json { head :no_content }
+      if(@user.user_type == 2)
+        @user.destroy
+        respond_to do |format|
+          format.html { redirect_to users_path, notice: 'User/Admin was successfully deleted.' }
+          format.json { head :no_content }
+        end
+      else
+        @user.destroy
+        respond_to do |format|
+          format.html { redirect_to show_admin_path, notice: 'User/Admin was successfully deleted.' }
+          format.json { head :no_content }
+        end
       end
+
     else
       format.html { redirect_to :back, notice: 'Super Admin cannot be deleted.' }
     end
@@ -138,7 +164,9 @@ class UsersController < ApplicationController
   end
 
   def type(val)
-    if(val.in?([0,1]))
+    if(val == 0)
+      return 'Super Admin'
+    elsif(val == 1)
       return 'Admin'
     else
       return 'User'

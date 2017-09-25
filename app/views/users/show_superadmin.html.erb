@@ -14,7 +14,7 @@
 
   <tbody>
   <% @users.each do |user| %>
-      <% if user.user_type.in?([1]) %>
+      <% if user.user_type.in?([0]) %>
           <tr>
             <td><%= user.name %></td>
             <td><%= user.email %></td>
@@ -31,6 +31,6 @@
 
 <br>
 
-<%= link_to 'Create a New Admin', newadmin_path, {:style=>'color:blue;', :class => "css_class"}%>
+<%= link_to 'Create a New Super Admin', newsuperadmin_path, {:style=>'color:blue;', :class => "css_class"}%>
 <br><br>
 <%= link_to 'Back to home page', current_user , {:style=>'color:green;', :class => "css_class"}%>
