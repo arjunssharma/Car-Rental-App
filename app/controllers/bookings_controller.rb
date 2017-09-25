@@ -15,7 +15,7 @@ class BookingsController < ApplicationController
 
   # GET /bookings/new
   def new
-    @booking = @car.bookings.build
+    @booking = Booking.new
   end
 
   # GET /bookings/1/edit
@@ -77,7 +77,9 @@ class BookingsController < ApplicationController
     end
 
     def set_car
-     @car = Car.find(params[:car_id])
+      if(params[:car] != nil)
+        @car = Car.find(params[:car])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

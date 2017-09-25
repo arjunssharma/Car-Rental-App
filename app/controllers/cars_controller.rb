@@ -10,7 +10,7 @@ class CarsController < ApplicationController
   # GET /cars/1
   # GET /cars/1.json
   def show
-    @booking = @car.bookings.build
+    @car = Car.find(params[:id])
   end
 
   # GET /cars/new
@@ -20,6 +20,7 @@ class CarsController < ApplicationController
 
   # GET /cars/1/edit
   def edit
+    @car = Car.find(params[:id])
   end
 
   # POST /cars
@@ -29,7 +30,7 @@ class CarsController < ApplicationController
 
     respond_to do |format|
       if @car.save
-        format.html { redirect_to @car, notice: 'Car was successfully created.' }
+        format.html { redirect_to current_user, notice: 'Car was successfully created.' }
         format.json { render :show, status: :created, location: @car }
       else
         format.html { render :new }
@@ -70,6 +71,15 @@ class CarsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def car_params
-    params.require(:car).permit(:name, :description, :comfort_class, :price, :picture, :remove_picture)
+    params.require(:car).permit(:name, :description, :license_number, :manufacturer, :style, :comfort_class, :price, :picture, :remove_picture)
   end
+
+  def type(val)
+    if(val.in?([0]))
+      return 'Available'
+    else
+      return 'Unavailable'
+    end
+  end
+  helper_method :type
 end

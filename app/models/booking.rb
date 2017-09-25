@@ -1,5 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :car
+  belongs_to :user
+
 
   validates :must_be_greater_than_one_day, inclusion: { in: 1..365, message: '- Choose between 1 day and 1 year' }
   validates :client, presence: true, length: { maximum: 30 }
