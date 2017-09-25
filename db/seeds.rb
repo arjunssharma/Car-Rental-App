@@ -20,6 +20,7 @@ User.create :name => 'user2', :password => 'password', :email => 'user2@car.com'
   3.times do
     name = Faker::Name.last_name
     content = Faker::Lorem.sentence(5)
+
     Car.create!(name:  name,
                 comfort_class: 'B',
                 description: content
@@ -28,6 +29,7 @@ User.create :name => 'user2', :password => 'password', :email => 'user2@car.com'
   3.times do
     name = Faker::Name.last_name
     content = Faker::Lorem.sentence(5)
+
     Car.create!(name:  name,
                 comfort_class: 'C',
                 description: content
@@ -36,12 +38,14 @@ User.create :name => 'user2', :password => 'password', :email => 'user2@car.com'
   3.times do
     name = Faker::Name.last_name
     content = Faker::Lorem.sentence(5)
+
     Car.create!(name:  name,
                 comfort_class: 'A',
                 description: content
     )
   end
 end
+
 cars = Car.order(:created_at).take(20)
 cars.each do |car|
   name  = Faker::Name.name
