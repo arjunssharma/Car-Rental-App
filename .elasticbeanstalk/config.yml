@@ -1,0 +1,22 @@
+branch-defaults:
+  master:
+    environment: production
+    group_suffix: null
+environment-defaults:
+  production:
+    branch: master
+    repository: Car-Rental-App
+global:
+  application_name: Car Rental
+  branch: master
+  default_ec2_keyname: null
+  default_platform: Ruby 2.3 (Puma)
+  default_region: us-east-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: Car-Rental-App
+  sc: git
+  workspace_type: Application
