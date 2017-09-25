@@ -5,34 +5,49 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Car.create!(name: 'Maruti', description: 'Year: 1999, Engine: 0, Horsepower: 20')
+User.create :name => 'admin', :password => 'password', :email => 'admin@car.com', :user_type => 0
 
-Car.create!(name: 'Omni', description: 'Year: 2002')
+User.create :name => 'admin1', :password => 'password', :email => 'admin1@car.com', :user_type => 1
+User.create :name => 'admin2', :password => 'password', :email => 'admin2@car.com', :user_type => 1
 
-Car.create!(name: 'Toyota', description: 'Year: 2014, Fuel: Gasoline')
+User.create :name => 'user1', :password => 'password', :email => 'user1@car.com', :user_type => 2
+User.create :name => 'user2', :password => 'password', :email => 'user2@car.com', :user_type => 2
 
-2.times do
-  2.times do
-    carName = Faker::Name.name
-    description = Faker::Lorem.sentence(3)
-    Car.create!(name:  carName, description: description)
+#Car.create!(name: 'Mercedes-Benz S550', comfort_class: 'A', description: 'Year: 2015, Engine: 4.7, Horsepower: 449, Fuel: Gasoline')
+
+=begin
+4.times do
+  3.times do
+    name = Faker::Name.last_name
+    content = Faker::Lorem.sentence(5)
+    Car.create!(name:  name,
+                comfort_class: 'B',
+                description: content
+    )
   end
-  2.times do
-    carName = Faker::Name.name
-    description = Faker::Lorem.sentence(3)
-    Car.create!(name:  carName, description: description)
+  3.times do
+    name = Faker::Name.last_name
+    content = Faker::Lorem.sentence(5)
+    Car.create!(name:  name,
+                comfort_class: 'C',
+                description: content
+    )
   end
-  2.times do
-    carName = Faker::Name.name
-    description = Faker::Lorem.sentence(3)
-    Car.create!(name:  carName, description: description)
+  3.times do
+    name = Faker::Name.last_name
+    content = Faker::Lorem.sentence(5)
+    Car.create!(name:  name,
+                comfort_class: 'A',
+                description: content
+    )
   end
 end
-
 cars = Car.order(:created_at).take(20)
 cars.each do |car|
-  start_date = Faker::Date.between(Date.tomorrow, 1.year.from_now)
+  name  = Faker::Name.name
   phone = Faker::PhoneNumber.cell_phone
-  end_date = Faker::Date.between(start_date + 1, start_date + 1.month)
-  car.bookings.create!(start_time: start_date, end_time: end_date, email_id: "asharm33@ncsu.edu", place: 'Mumbai', phone: phone)
+  starting = Faker::Date.between(Date.tomorrow, 1.year.from_now)
+  ending = Faker::Date.between(starting + 1, starting + 1.month)
+  car.bookings.create!(starting: starting, ending: ending, client: name, place: 'New York, 55 East 52nd Street', phone: phone)
 end
+=end
