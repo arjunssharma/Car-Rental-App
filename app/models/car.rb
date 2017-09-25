@@ -1,7 +1,7 @@
 class Car < ApplicationRecord
   has_many :bookings
-  #before_save :set_price
-  validates :name, presence: true, length: { maximum: 20 }
+  before_save :set_price
+  validates :name, presence: true, length: { maximum: 30 }
   validates :description, presence: true, length: { maximum: 100 }
 
   #def available?
@@ -9,16 +9,14 @@ class Car < ApplicationRecord
   #end
 
   private
-=begin
   def set_price
-    if comfort_class == 'A'
+    if style == 'SUV'
+      self.price = 150
+    elsif style == 'Sedan'
+      self.price = 125
+    elsif style == 'Coupe'
       self.price = 100
-    elsif comfort_class == 'B'
-      self.price = 75
-    elsif comfort_class == 'C'
-      self.price = 50
     end
   end
-=end
 
 end

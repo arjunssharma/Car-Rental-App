@@ -23,6 +23,7 @@ class BookingsController < ApplicationController
   end
 
   def create_booking
+    @booking = Booking.new(booking_params)
     if @booking.save
       redirect_to current_user, notice: 'Booking was successfully created.'
     else
@@ -33,7 +34,7 @@ class BookingsController < ApplicationController
   # POST /bookings
   # POST /bookings.json
   def create
-    @booking = @car.bookings.build(booking_params)
+    @booking = Booking.new(booking_params)
 
     respond_to do |format|
       if @booking.save
@@ -84,6 +85,6 @@ class BookingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def booking_params
-      params.require(:booking).permit(:client, :phone, :place, :car_id, :starting, :ending)
+      params.require(:booking).permit(:email_id, :phone, :place, :car_id, :start_time, :end_time)
     end
 end

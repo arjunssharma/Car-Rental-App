@@ -12,15 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20170925015620) do
 
-  create_table "Users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at",      :null=>false
-    t.datetime "updated_at",      :null=>false
-    t.string   "password_digest"
-    t.integer  "user_type",       :default=>2
-  end
-
   create_table "bookings", force: :cascade do |t|
     t.string   "email_id"
     t.string   "phone"
@@ -31,17 +22,6 @@ ActiveRecord::Schema.define(version: 20170925015620) do
     t.datetime "end_time"
     t.integer  "car_id",     :index=>{:name=>"index_bookings_on_car_id"}
     t.integer  "user_id",    :index=>{:name=>"index_bookings_on_user_id"}
-  end
-
-  create_table "bookings_tables", force: :cascade do |t|
-    t.string   "client"
-    t.string   "phone"
-    t.string   "place"
-    t.datetime "created_at", :null=>false
-    t.datetime "updated_at", :null=>false
-    t.date     "starting"
-    t.date     "ending"
-    t.integer  "car_id",     :index=>{:name=>"index_bookings_tables_on_car_id"}
   end
 
   create_table "cars", force: :cascade do |t|
@@ -57,15 +37,13 @@ ActiveRecord::Schema.define(version: 20170925015620) do
     t.datetime "updated_at",     :null=>false
   end
 
-  create_table "cars_tables", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "name"
-    t.text     "description"
-    t.string   "comfort_class"
-    t.string   "status"
-    t.float    "price"
-    t.datetime "created_at",    :null=>false
-    t.datetime "updated_at",    :null=>false
-    t.string   "picture"
+    t.string   "email"
+    t.datetime "created_at",      :null=>false
+    t.datetime "updated_at",      :null=>false
+    t.string   "password_digest"
+    t.integer  "user_type",       :default=>2
   end
 
 end
