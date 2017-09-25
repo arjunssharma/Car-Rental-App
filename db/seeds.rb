@@ -5,47 +5,34 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Car.create!(name: 'Mercedes-Benz S550', comfort_class: 'A', description: 'Year: 2015, Engine: 4.7, Horsepower: 449, Fuel: Gasoline')
+Car.create!(name: 'Maruti', description: 'Year: 1999, Engine: 0, Horsepower: 20')
 
-Car.create!(name: 'Volkswagen Passat', comfort_class: 'B', description: 'Year: 2014, Engine: 1.4, Horsepower: 150, Fuel: Gasoline')
+Car.create!(name: 'Omni', description: 'Year: 2002')
 
-Car.create!(name: 'Fiat Panda', comfort_class: 'C', description: 'Year: 2014, Engine: 1.1, Horsepower: 54, Fuel: Gasoline')
+Car.create!(name: 'Toyota', description: 'Year: 2014, Fuel: Gasoline')
 
-4.times do
-  3.times do
-    name = Faker::Name.last_name
-    content = Faker::Lorem.sentence(5)
-
-    Car.create!(name:  name,
-                comfort_class: 'B',
-                description: content
-    )
+2.times do
+  2.times do
+    carName = Faker::Name.name
+    description = Faker::Lorem.sentence(3)
+    Car.create!(name:  carName, description: description)
   end
-  3.times do
-    name = Faker::Name.last_name
-    content = Faker::Lorem.sentence(5)
-
-    Car.create!(name:  name,
-                comfort_class: 'C',
-                description: content
-    )
+  2.times do
+    carName = Faker::Name.name
+    description = Faker::Lorem.sentence(3)
+    Car.create!(name:  carName, description: description)
   end
-  3.times do
-    name = Faker::Name.last_name
-    content = Faker::Lorem.sentence(5)
-
-    Car.create!(name:  name,
-                comfort_class: 'A',
-                description: content
-    )
+  2.times do
+    carName = Faker::Name.name
+    description = Faker::Lorem.sentence(3)
+    Car.create!(name:  carName, description: description)
   end
 end
 
 cars = Car.order(:created_at).take(20)
 cars.each do |car|
-  name  = Faker::Name.name
+  start_date = Faker::Date.between(Date.tomorrow, 1.year.from_now)
   phone = Faker::PhoneNumber.cell_phone
-  starting = Faker::Date.between(Date.tomorrow, 1.year.from_now)
-  ending = Faker::Date.between(starting + 1, starting + 1.month)
-  car.bookings.create!(starting: starting, ending: ending, client: name, place: 'New York, 55 East 52nd Street', phone: phone)
+  end_date = Faker::Date.between(start_date + 1, start_date + 1.month)
+  car.bookings.create!(start_time: start_date, end_time: end_date, email_id: "asharm33@ncsu.edu", place: 'Mumbai', phone: phone)
 end
