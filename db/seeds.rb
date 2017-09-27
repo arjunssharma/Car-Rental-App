@@ -13,6 +13,13 @@ User.create :name => 'admin2', :password => 'password', :email => 'admin2@car.co
 User.create :name => 'user1', :password => 'password', :email => 'user1@car.com', :user_type => 2
 User.create :name => 'user2', :password => 'password', :email => 'user2@car.com', :user_type => 2
 
+Car.create  :name => 'X1 F48', :description => 'Launched in 2015.', :license_number => 'ABC9898', :manufacturer => 'BMW', :style => 'SUV', price => 150.0
+Car.create  :name => 'Viper 3rd Gen', :description => 'Coupe by Dodge(USA)..', :license_number => 'DEF9998', :manufacturer => 'Dodge', :style => 'Coupe', price => 100.0
+Car.create  :name => 'Civic 10th Gen', :description => 'Sleek looking.', :license_number => 'AHH7867', :manufacturer => 'Honda', :style => 'Sedan', price => 125.0
+Car.create  :name => 'Caprice PPV', :description => 'Launched in 2012.', :license_number => 'PLC9898', :manufacturer => 'Chevrolet', :style => 'Sedan', price => 125.0
+Car.create  :name => 'Cruze 2nd Gen', :description => 'Launched in 2016.', :license_number => 'YHC9698', :manufacturer => 'Chevrolet', :style => 'Sedan', price => 125.0
+Car.create  :name => 'X3 G01', :description => 'Launched in 2017.', :license_number => 'TTC5898', :manufacturer => 'BMW', :style => 'SUV', price => 150.0
+
 #Car.create!(name: 'Mercedes-Benz S550', comfort_class: 'A', description: 'Year: 2015, Engine: 4.7, Horsepower: 449, Fuel: Gasoline')
 
 =begin
