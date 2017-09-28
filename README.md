@@ -12,8 +12,20 @@ This Application is written using Ruby on Rails as a project for course Object O
 ### Production App Link
 https://stormy-river-36686.herokuapp.com/
 
-### Default admin
+### Default super admin
 <dd><b>username:</b> admin@car.com</dd>
+<dd><b>passsword:</b> password</dd>
+
+### Default admin
+<dd><b>username:</b> admin1@car.com</dd>
+<dd><b>passsword:</b> password</dd>
+<dd><b>username:</b> admin2@car.com</dd>
+<dd><b>passsword:</b> password</dd>
+
+### Default user
+<dd><b>username:</b> user1@car.com</dd>
+<dd><b>passsword:</b> password</dd>
+<dd><b>username:</b> user2@car.com</dd>
 <dd><b>passsword:</b> password</dd>
 
 ## App Functionality
@@ -24,3 +36,5 @@ https://stormy-river-36686.herokuapp.com/
 * Give your name, email address, password, confirm your password and click on Sign Up button
 * Once you log in, you will see a set of links depending on whether you are a user, admin or super admin . Functionality for each of these links explained below
 * After logging in, each page will have a Home and Logout button on top
+* Booking also works, admins can see all the booking or bookings based on Users or Cars
+* Have to implement Checkout and return functionality and complete testing
