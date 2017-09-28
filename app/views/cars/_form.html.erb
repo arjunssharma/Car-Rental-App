@@ -12,8 +12,8 @@
   <% end %>
 
     <div class="field">
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
+      <%= f.label :model %><br>
+      <%= f.text_field :model %>
     </div>
     <div class="field">
       <%= f.label :description %><br>
@@ -29,9 +29,28 @@
     </div>
     <div class="field">
       <%= f.label :style %><br>
-      <%= f.text_field :style %>
+      <%= f.select :style do %>
+          <% ['Hatchback', 'Sedan', 'SUV'].each do |c| %>
+              <%= content_tag(:option, c, value: c) %>
+          <% end %>
+      <% end %>
     </div>
-
+    <div class="field">
+      <%= f.label :price %><br>
+      <%= f.text_field :price %>
+    </div>
+    <!--<div class="field">-->
+    <!--<%= f.label :status %><br>-->
+      <!--<%= f.select :status do %>-->
+          <!--<% ["Available", "Checked Out", "Reserved"].each do |c| %>-->
+              <!--<%= content_tag(:option, c, value: c) %>-->
+          <!--<% end %>-->
+      <!--<% end %>-->
+    <!--</div>-->
+    <div class="field">
+      <%= f.label :location %><br>
+      <%= f.text_field :location %>
+    </div>
     <div class="actions">
       <%= f.submit %>
     </div>

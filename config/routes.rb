@@ -17,8 +17,6 @@ Rails.application.routes.draw do
   get  '/new_superadmin',  to: 'users#newsuperadmin'
   post '/new_superadmin',  to: 'users#createsuperadmin'
 
-  get  '/bookings',  to: 'bookings#newbooking'
-  post '/bookings',  to: 'bookings#create_booking'
 
   get  '/cars',  to: 'cars#index'
   post '/cars',  to: 'cars#create'
@@ -33,9 +31,16 @@ Rails.application.routes.draw do
   match '/users/newsuperadmin', to: 'users#newsuperadmin', as: :newsuperadmin, via: :all
 
   #match '/users/newuser', to: 'users#newuser', as: :new_user, via: :all
-  resources :users
-  resources :cars
+  resources :users do
+    resources :bookings
+  end
   resources :bookings
+  resources :users
+
+  resources :cars do
+    resources :bookings
+  end
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   #root 'users#index'
 end

@@ -17,11 +17,11 @@
       <%= link_to 'Manage Admins', show_admin_path, {:style=>'color:blue;', :class => "css_class"} %><br>
       <%= link_to 'Manage Users',  users_path, {:style=>'color:blue;', :class => "css_class"} %><br>
       <%= link_to 'Manage Cars', cars_path(), {:style=>'color:blue;', :class => "css_class"} %><br>
-      <%= link_to 'Manage bookings', cars_path(), {:style=>'color:blue;', :class => "css_class"} %>
+      <%= link_to 'Manage bookings', bookings_path(), {:style=>'color:blue;', :class => "css_class"} %>
       <br />
   <% else %>
       <%= link_to 'Rent a Car', cars_path(), {:style=>'color:blue;', :class => "css_class"} %><br>
-      <%= link_to 'Show Previous Bookings', new_car_path(@car), {:style=>'color:blue;', :class => "css_class"} %>
+      <%= link_to 'Manage Bookings', bookings_path(), {:style=>'color:blue;', :class => "css_class"} %>
   <% end %>
 </h4>
 

@@ -1,5 +1,33 @@
-<h1>New Booking</h1>
+<h1>Book Car</h1>
+<h3>Model: <%= @car.model %></h3>
+<h3>Manufacturer: <%= @car.manufacturer %></h3>
+<h3>Style: <%= @car.style %></h3>
+<h3>Rate per hour ($): <%= @car.price %></h3>
+<h3>Location: <%= @car.location %></h3>
 
-<%= render 'form', booking: @booking %>
+<%= form_for [@car, @booking] do |f| %>
+    <% if @booking.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@booking.errors.count, "error") %> prohibited this booking from being saved:</h2>
 
-<%= link_to 'Back', bookings_path %>
+          <ul>
+            <% @booking.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+    <div class='field'>
+      <%= f.label :start_time %><br>
+      <%= f.datetime_local_field :start_time, class: "form-control" %>
+    </div>
+    <br />
+    <div class='field'>
+      <%= f.label :end_time %><br>
+      <%= f.datetime_field :end_time, class: "form-control" %>
+    </div>
+    <br />
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

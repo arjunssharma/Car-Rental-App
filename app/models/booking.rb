@@ -2,15 +2,17 @@ class Booking < ApplicationRecord
   belongs_to :car
   belongs_to :user
 
+  validates :start_time, :presence => true
+  validates :end_time, :presence => true
 
   validates :must_be_between_two_and_ten_hours, inclusion: { in: 2..10, message: '- Choose between 2 hours and 10 hours' }
-  validates :email_id, presence: true, length: { maximum: 30 }
-  validates :place, presence: true
-  validates :phone, presence: true, length: { maximum: 15 }
+
   validate :date_range, on: :create
   validate :date_range_edit, on: :update
 
   def must_be_between_two_and_ten_hours
+    print :start_time
+    print :end_time
     ( Time.parse(end_time.to_s) - Time.parse(start_time.to_s) ) / 3600
   end
 

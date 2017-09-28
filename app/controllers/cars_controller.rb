@@ -1,10 +1,16 @@
 class CarsController < ApplicationController
   before_action :set_car, only: [:show, :edit, :update, :destroy]
-
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   # GET /cars
   # GET /cars.json
   def index
-    @cars = Car.all
+    #@cars = Car.all
+    @booking = Booking.where("user_id = ?", current_user.id)
+    if @booking.length > 0 then
+      @cars = []
+    else
+      @cars = Car.all
+    end
   end
 
   # GET /cars/1
@@ -63,6 +69,15 @@ class CarsController < ApplicationController
     end
   end
 
+  def logged_in_user
+    unless logged_in?
+      store_location
+      flash[:danger] = "Please log in."
+      redirect_to login_url
+    end
+  end
+
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_car
@@ -71,14 +86,16 @@ class CarsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def car_params
-    params.require(:car).permit(:name, :description, :license_number, :manufacturer, :style, :comfort_class, :price, :picture, :remove_picture)
+    params.require(:car).permit(:model, :description, :license_number, :manufacturer, :style, :price, :location)
   end
 
   def type(val)
-    if(val.in?([0]))
+    if(val==0)
       return 'Available'
+    elsif(val==1)
+      return 'Reserved'
     else
-      return 'Unavailable'
+      return 'Checked Out'
     end
   end
   helper_method :type
