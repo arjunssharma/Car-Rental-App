@@ -14,10 +14,12 @@ class BookingsController < ApplicationController
     if(current_user.user_type == 2)
       @bookings = Booking.where("user_id = ?", current_user.id)
     else
-      if(@user == nil)
-        @bookings = Booking.where("car_id = ?", @car.id)
-      else
+      if(@user == nil and @car == nil)
+        @bookings = Booking.all
+      elsif(@car == nil)
         @bookings = Booking.where("user_id = ?", @user.id)
+      else
+        @bookings = Booking.where("car_id = ?", @car.id)
       end
 
       #@bookings = Booking.all

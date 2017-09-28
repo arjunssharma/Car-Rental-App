@@ -20,7 +20,6 @@
       <tr>
         <th>Model</th>
         <th>Description</th>
-        <th>License Plate</th>
         <th>Manufacturer</th>
         <th>License Number</th>
         <th>Style</th>
@@ -31,7 +30,7 @@
         <%end%>
 
         <th></th>
-        <th colspan="3" align="center">Actions</th>
+        <th colspan="3"></th>
       </tr>
 
   <tbody>
@@ -39,8 +38,8 @@
   <% @cars.each do |car| %>
       <td><%= car.model %></td>
       <td><%= car.description %></td>
-      <td><%= car.license_number %></td>
       <td><%= car.manufacturer %></td>
+      <td><%= car.license_number %></td>
       <td><%= car.style %></td>
       <td><%= car.price %></td>
       <td><%= car.location %></td>
