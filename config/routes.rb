@@ -34,6 +34,8 @@ Rails.application.routes.draw do
   get '/bookings/:id/check_out', to: 'bookings#check_out', as: :check_out
   get '/bookings/:id/return', to: 'bookings#return', as: :return
 
+  get 'email_notification/:id/:id1' => 'cars#email_notification' ,:as => 'email_notification'
+
   #match '/users/newuser', to: 'users#newuser', as: :new_user, via: :all
   resources :bookings
   #resources :users
