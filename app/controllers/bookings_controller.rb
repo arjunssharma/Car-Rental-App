@@ -5,8 +5,6 @@ class BookingsController < ApplicationController
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
 
-
-
   # GET /bookings
   # GET /bookings.json
   def index
@@ -34,6 +32,7 @@ class BookingsController < ApplicationController
   # GET /bookings/new
   def new
     @booking = Booking.new
+    @users= User.where(user_type: 2).all
   end
 
   # GET /bookings/1/edit
@@ -45,12 +44,20 @@ class BookingsController < ApplicationController
   def create
     @booking = Booking.new(booking_params)
     @booking.car_id = @car.id
-    @booking.user_id = current_user.id
-    @pickup = @booking.start_time
-    @return = @booking.end_time
+    if current_user.user_type == 2
+      @booking.user_id = current_user.id
+    end
+    @booking.status = 0
     respond_to do |format|
       if @booking.save then
-        format.html { redirect_to current_user, notice: 'Booking was successfully created' }
+        @car.status = 'Reserved'
+        @car.save
+        if current_user.user_type == 2
+          format.html { redirect_to current_user, notice: 'Booking was successfully created' }
+        else
+          format.html { redirect_to cars_path(), notice: 'Booking was successfully created' }
+        end
+
         format.json { render action: 'show', status: :created, location: @booking }
       else
         flash[:notice] = @msg
@@ -65,7 +72,7 @@ class BookingsController < ApplicationController
   def update
     respond_to do |format|
       if @booking.update(booking_params)
-        format.html { redirect_to car_bookings_path(@car), notice: 'Booking was successfully updated.' }
+        format.html { redirect_to current_user, notice: 'Booking was successfully updated.' }
         format.json { render :show, status: :ok, location: @booking }
       else
         format.html { render :edit }
@@ -77,12 +84,46 @@ class BookingsController < ApplicationController
   # DELETE /bookings/1
   # DELETE /bookings/1.json
   def destroy
+    @car = Car.find(@booking.car_id)
     @booking.destroy
+    @car.status = 'Available'
+    @car.save
     respond_to do |format|
       format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
+
+  def check_out
+    @booking = Booking.find(params[:id])
+    @booking.status = 1
+    respond_to do |format|
+      if @booking.save then
+        @car = Car.find(@booking.car_id)
+        @car.status = 'Checked Out'
+        @car.save
+        format.html { redirect_to bookings_url, notice: 'Car checked out successfully' }
+      else
+        format.html { redirect_to bookings_url, notice: 'Something went wrong, please try again' }
+      end
+    end
+  end
+
+  def return
+    @booking = Booking.find(params[:id])
+    @booking.status = 2
+    respond_to do |format|
+      if @booking.save then
+        @car = Car.find(@booking.car_id)
+        @car.status = 'Available'
+        @car.save
+        format.html { redirect_to bookings_url, notice: 'Car Returned successfully' }
+      else
+        format.html { redirect_to bookings_url, notice: 'Something went wrong, please try again' }
+      end
+    end
+  end
+
 
   def logged_in_user
     unless logged_in?
@@ -109,10 +150,22 @@ class BookingsController < ApplicationController
     @booking = Booking.find(params[:id])
   end
 
-
+  def type(val)
+    if(val == 0)
+      return 'Reserved'
+    elsif(val == 1)
+      return 'Checked Out'
+    else
+      return 'Returned'
+    end
+  end
+  helper_method :type
 
   private
   def booking_params
-    params.require(:booking).permit(:start_time, :end_time)
+    params.require(:booking).permit(:start_time, :end_time, :user_id)
   end
+  #def set_users
+  ##  @users= User.where(user_type: 2).all
+  #end
 end

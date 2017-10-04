@@ -49,12 +49,16 @@
 
       <td><%# type(car.status) %></td>
         <% if current_user.user_type.in?([0, 1]) %>
-          <td><%= link_to 'Bookings', car_bookings_path(car) %></td>
+          <td><%= link_to 'All Bookings', car_bookings_path(car) %></td>
           <td><%= link_to 'Edit car', edit_car_path(car) %></td>
           <td><%= link_to 'Delete car', car, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-          <td><%# link_to 'Show History', edit_car_path(car) %></td>
+          <td><%= link_to 'Book For a User', new_car_booking_path(car) %></td>
         <% else %>
-            <td><%= link_to 'Book', new_car_booking_path(car) %></td>
+            <% if car.status == 'Checked Out'%>
+              <td>Checked Out</td>
+            <%else%>
+              <td><%= link_to 'Book', new_car_booking_path(car) %></td>
+            <% end %>
         <% end %>
       </tr>
   <% end %>

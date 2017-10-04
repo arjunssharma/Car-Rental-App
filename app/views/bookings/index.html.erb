@@ -10,8 +10,9 @@
     <th>Car</th>
     <% if current_user.user_type.in?([0, 1]) %>
         <th>Customer Email</th>
-        <th>Car Status</th>
+        <th>Status</th>
     <% end %>
+
     <th colspan="3"></th>
   </tr>
   </thead>
@@ -24,14 +25,21 @@
         <td><%= Car.find_by_id(booking.car_id).model %></td>
         <% if current_user.user_type.in?([0, 1]) %>
             <td><%= User.find_by_id(booking.user_id).email %></td>
-            <td><%= Car.find_by_id(booking.car_id).status %></td>
+            <td><%= type(booking.status) %></td>
         <% end %>
-        <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
-        <td><%= link_to 'Destroy', [booking], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-
+        <% if booking.status == 0 %>
+            <td><%= link_to 'Edit', edit_booking_path(booking) %></td>
+        <% end %>
+        <td>
+          <% if booking.status == 0 %>
+              <%= link_to 'Cancel Booking', [booking], method: :delete, data: { confirm: 'Are you sure?' } %>
+              <%= link_to "Check Out", check_out_url(booking.id) %>
+          <% elsif booking.status == 1 %>
+              <%= link_to "Return", return_url(booking.id) %>
+          <% end %>
+        </td>
       </tr>
   <% end %>
   </tbody>
 </table>
-
 <br>

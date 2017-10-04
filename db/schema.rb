@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170927235554) do
+ActiveRecord::Schema.define(version: 20171004144925) do
 
   create_table "Users", force: :cascade do |t|
     t.string   "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20170927235554) do
     t.datetime "updated_at",      :null=>false
     t.string   "password_digest"
     t.integer  "user_type",       :default=>2
+    t.integer  "charge"
   end
 
   create_table "bookings", force: :cascade do |t|
@@ -28,17 +29,7 @@ ActiveRecord::Schema.define(version: 20170927235554) do
     t.integer  "car_id",     :index=>{:name=>"index_bookings_on_car_id"}
     t.datetime "created_at", :null=>false
     t.datetime "updated_at", :null=>false
-  end
-
-  create_table "bookings_tables", force: :cascade do |t|
-    t.string   "client"
-    t.string   "phone"
-    t.string   "place"
-    t.datetime "created_at", :null=>false
-    t.datetime "updated_at", :null=>false
-    t.date     "starting"
-    t.date     "ending"
-    t.integer  "car_id",     :index=>{:name=>"index_bookings_tables_on_car_id"}
+    t.integer  "status"
   end
 
   create_table "cars", force: :cascade do |t|
@@ -52,17 +43,6 @@ ActiveRecord::Schema.define(version: 20170927235554) do
     t.string   "location"
     t.datetime "created_at",     :null=>false
     t.datetime "updated_at",     :null=>false
-  end
-
-  create_table "cars_tables", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.string   "comfort_class"
-    t.string   "status"
-    t.float    "price"
-    t.datetime "created_at",    :null=>false
-    t.datetime "updated_at",    :null=>false
-    t.string   "picture"
   end
 
 end

@@ -5,9 +5,12 @@ class CarsController < ApplicationController
   # GET /cars.json
   def index
     #@cars = Car.all
-    @booking = Booking.where("user_id = ?", current_user.id)
+    @booking = Booking.where("user_id = ? AND status < 2", current_user.id)
     if @booking.length > 0 then
       @cars = []
+      respond_to do |format|
+        format.html { redirect_to current_user,notice: 'You already have a booking. Please finish that 1st' }
+      end
     else
       @cars = Car.all
     end

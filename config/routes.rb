@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
+  root 'car_rental#home'
   get 'sessions/new'
   get 'users/new'
-  root 'car_rental#home'
   get '/help', to: 'car_rental#help'
   get '/about', to:'car_rental#about'
   get  '/signup',  to: 'users#new'
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post '/new_user',  to: 'users#createuser'
 
   get  '/new_admin',  to: 'users#newadmin'
+  get  '/edit',  to: 'users#edit'
   post '/new_admin',  to: 'users#createadmin'
 
   get  '/new_superadmin',  to: 'users#newsuperadmin'
@@ -30,12 +31,17 @@ Rails.application.routes.draw do
   get 'show_superadmin', to: 'users#show_superadmin', as: :show_superadmin, via: :all
   match '/users/newsuperadmin', to: 'users#newsuperadmin', as: :newsuperadmin, via: :all
 
+  get '/bookings/:id/check_out', to: 'bookings#check_out', as: :check_out
+  get '/bookings/:id/return', to: 'bookings#return', as: :return
+
   #match '/users/newuser', to: 'users#newuser', as: :new_user, via: :all
+  resources :bookings
+  #resources :users
+
   resources :users do
     resources :bookings
   end
-  resources :bookings
-  resources :users
+
 
   resources :cars do
     resources :bookings
