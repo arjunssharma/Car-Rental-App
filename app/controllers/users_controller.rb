@@ -62,6 +62,7 @@ class UsersController < ApplicationController
 
   def createuser
     @user = User.new(user_params)
+
     if @user.save
       redirect_to current_user, notice: 'User was successfully created.'
     else
@@ -109,23 +110,27 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     if(@user.user_type > 0)
-      # if user == current user or nil, don't delete
-      # if usertype == 2 (user), not allowed to delete
-      # Give a message saying can't delete
       if(@user.user_type == 2)
-        @user.destroy
-        respond_to do |format|
-          format.html { redirect_to users_path, notice: 'User/Admin was successfully deleted.' }
-          format.json { head :no_content }
+        @booking = Booking.where("user_id = ? AND status < 2", @user.id)
+        if @booking.length > 0
+          respond_to do |format|
+            format.html { redirect_to users_path, notice: 'User has an active booking. Can not be deleted.' }
+            #format.json { head :no_content }
+          end
+        else
+          @user.destroy
+          respond_to do |format|
+            format.html { redirect_to users_path, notice: 'User was successfully deleted.' }
+            format.json { head :no_content }
+          end
         end
       else
         @user.destroy
         respond_to do |format|
-          format.html { redirect_to show_admin_path, notice: 'User/Admin was successfully deleted.' }
+          format.html { redirect_to show_admin_path, notice: 'Admin was successfully deleted.' }
           format.json { head :no_content }
         end
       end
-
     else
       format.html { redirect_to :back, notice: 'Super Admin cannot be deleted.' }
     end
