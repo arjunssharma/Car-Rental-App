@@ -6,14 +6,20 @@ class CarsController < ApplicationController
   def index
     #@cars = Car.all
     @booking = Booking.where("user_id = ? AND status < 2", current_user.id)
+    @options_for_search = Car.attribute_names.select {|c| c.include?('model') || c.include?('description') || c.include?('style') || c.include?('status') || c.include?('manufacturer')}
     if @booking.length > 0 then
       @cars = []
-      respond_to do |format|
-        format.html { redirect_to current_user,notice: 'You already have a booking. Please finish that 1st' }
-      end
+    elsif !params[:search].blank? and !params[:search_by].blank?
+      @cars = Car.search(params[:search], params[:search_by])
     else
       @cars = Car.all
     end
+  end
+
+  def email_notification
+    @car = Car.find(params[:id])
+    @user = User.find(params[:id1])
+    @car.update_attribute(:user, @user.email)
   end
 
   # GET /cars/1
@@ -89,7 +95,7 @@ class CarsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def car_params
-    params.require(:car).permit(:model, :description, :license_number, :manufacturer, :style, :price, :location)
+    params.require(:car).permit(:model, :description, :license_number, :manufacturer, :style, :price, :location, :email_register)
   end
 
   def type(val)

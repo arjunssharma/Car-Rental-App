@@ -6,7 +6,6 @@ Rails.application.configure do
   # your test database is "scratch space" for the test suite and is wiped
   # and recreated between test runs. Don't rely on the data there!
   config.cache_classes = true
-
   # Do not eager load code on boot. This avoids loading your whole application
   # just for the purpose of running a single test. If you are using a tool that
   # preloads Rails for running tests, you may have to set it to true.
@@ -39,4 +38,16 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+      :address              => 'smtp.gmail.com',
+      :port                 => 587,
+      :user_name            => 'rentalservices.updates@gmail.com',
+      :password             => 'Car@1234',
+      :domain               => 'gmail.com',
+      :authentication       => 'plain',
+      :enable_starttls_auto => true
+  }
 end

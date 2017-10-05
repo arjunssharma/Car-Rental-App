@@ -88,6 +88,13 @@ class BookingsController < ApplicationController
     @booking.destroy
     @car.status = 'Available'
     @car.save
+    if @car.email_register and !@car.user.empty?
+      user = User.find_by_email(@car.user)
+      ApplicationMailer.car_available_email_notification(user).deliver_now
+      @car.user = nil
+      @car.email_register = false
+      @car.save!
+    end
     respond_to do |format|
       format.html { redirect_to bookings_url, notice: 'Booking was successfully destroyed.' }
       format.json { head :no_content }
@@ -111,12 +118,23 @@ class BookingsController < ApplicationController
 
   def return
     @booking = Booking.find(params[:id])
+    @car = Car.find(@booking.car_id)
     @booking.status = 2
+    if @car.email_register and !@car.user.empty?
+      user = User.find_by_email(@car.user)
+      ApplicationMailer.car_available_email_notification(user).deliver_now
+      @car.user = nil
+      @car.email_register = false
+      @car.save!
+    end
     respond_to do |format|
       if @booking.save then
         @car = Car.find(@booking.car_id)
         @car.status = 'Available'
         @car.save
+
+
+
         format.html { redirect_to bookings_url, notice: 'Car Returned successfully' }
       else
         format.html { redirect_to bookings_url, notice: 'Something went wrong, please try again' }

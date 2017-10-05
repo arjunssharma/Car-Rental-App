@@ -10,17 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171004144925) do
-
-  create_table "Users", force: :cascade do |t|
-    t.string   "name"
-    t.string   "email"
-    t.datetime "created_at",      :null=>false
-    t.datetime "updated_at",      :null=>false
-    t.string   "password_digest"
-    t.integer  "user_type",       :default=>2
-    t.integer  "charge"
-  end
+ActiveRecord::Schema.define(version: 20171004213059) do
 
   create_table "bookings", force: :cascade do |t|
     t.datetime "start_time"
@@ -43,6 +33,18 @@ ActiveRecord::Schema.define(version: 20171004144925) do
     t.string   "location"
     t.datetime "created_at",     :null=>false
     t.datetime "updated_at",     :null=>false
+    t.string   "user"
+    t.boolean  "email_register"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.datetime "created_at",      :null=>false
+    t.datetime "updated_at",      :null=>false
+    t.string   "password_digest"
+    t.integer  "user_type",       :default=>2
+    t.integer  "charge"
   end
 
 end
