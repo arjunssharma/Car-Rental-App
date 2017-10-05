@@ -21,10 +21,6 @@ class Booking < ApplicationRecord
 
   def date_range_edit
     if start_time != nil and end_time != nil
-      unless start_time - Time.now <= 7
-        errors.add(:base, 'Booking can not be done more than 7 days in advance')
-      end
-
       unless Booking.where('car_id = ?  AND status <2 AND id <> ? AND ((start_time <= ? AND end_time >= ?) OR (start_time >= ? AND end_time <= ?) OR (start_time <= ? AND end_time >= ?))',
                            car_id, id, start_time, start_time,
                            start_time, end_time, end_time, end_time).empty?
@@ -35,9 +31,6 @@ class Booking < ApplicationRecord
 
   def date_range
     if start_time != nil and end_time != nil
-      unless start_time - Time.now <= 7
-        errors.add(:base, 'Booking can not be done more than 7 days in advance')
-      end
       unless Booking.where('car_id = ?  AND status <2 AND id <> ? AND ((start_time <= ? AND end_time >= ?) OR (start_time >= ? AND end_time <= ?) OR (start_time <= ? AND end_time >= ?))',
                            car_id, id, start_time, start_time,
                            start_time, end_time, end_time, end_time).empty?
