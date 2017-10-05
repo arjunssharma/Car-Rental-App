@@ -9,6 +9,9 @@ class CarsController < ApplicationController
     @options_for_search = Car.attribute_names.select {|c| c.include?('model') || c.include?('description') || c.include?('style') || c.include?('status') || c.include?('manufacturer')}
     if @booking.length > 0 then
       @cars = []
+      respond_to do |format|
+        format.html { redirect_to current_user,notice: 'You already have a booking. Please finish that 1st' }
+      end
     elsif !params[:search].blank? and !params[:search_by].blank?
       @cars = Car.search(params[:search], params[:search_by])
     else

@@ -2,6 +2,7 @@ class BookingsController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :set_car
   before_action :set_user
+  before_action :set_users
   before_action :set_booking, only: [:show, :edit, :update, :destroy]
 
 
@@ -183,7 +184,7 @@ class BookingsController < ApplicationController
   def booking_params
     params.require(:booking).permit(:start_time, :end_time, :user_id)
   end
-  #def set_users
-  ##  @users= User.where(user_type: 2).all
-  #end
+  def set_users
+    @users= User.where(user_type: 2).all
+  end
 end
