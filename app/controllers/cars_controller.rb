@@ -5,7 +5,7 @@ class CarsController < ApplicationController
   # GET /cars.json
   def index
     #@cars = Car.all
-    @booking = Booking.where('user_id = ?', current_user.id)
+    @booking = Booking.where("user_id = ? AND status < 2", current_user.id)
     @options_for_search = Car.attribute_names.select {|c| c.include?('model') || c.include?('description') || c.include?('style') || c.include?('status') || c.include?('manufacturer')}
     if @booking.length > 0 then
       @cars = []

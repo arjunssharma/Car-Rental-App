@@ -90,8 +90,9 @@ class BookingsController < ApplicationController
     @car.save
     if @car.email_register and !@car.user.empty?
       user = User.find_by_email(@car.user)
-      ApplicationMailer.car_available_email_notification(user).deliver!
+      ApplicationMailer.car_available_email_notification(user).deliver_now
       @car.user = nil
+      @car.email_register = false
       @car.save!
     end
     respond_to do |format|
@@ -121,8 +122,9 @@ class BookingsController < ApplicationController
     @booking.status = 2
     if @car.email_register and !@car.user.empty?
       user = User.find_by_email(@car.user)
-      ApplicationMailer.car_available_email_notification(user).deliver!
+      ApplicationMailer.car_available_email_notification(user).deliver_now
       @car.user = nil
+      @car.email_register = false
       @car.save!
     end
     respond_to do |format|
