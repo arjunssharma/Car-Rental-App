@@ -2,8 +2,8 @@
 This Repo hosts the code for Car Rental App based on Ruby and Rails as a part of OODD course.
 
 ## Team Members
-<dd>Gaurav Joshi (gjoshi@ncsu.edu)</dd>
 <dd>Arjun Shashikant Sharma (asharm33@ncsu.edu)</dd>
+<dd>Gaurav Joshi (gjoshi@ncsu.edu)</dd>
 <dd>Kanchan Bisht (kbisht@ncsu.edu)</dd>
 
 ### Production App Link
